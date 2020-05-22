@@ -5,6 +5,7 @@ import ElementUI from 'element-ui'
 Vue.config.productionTip = false
 import 'element-ui/lib/theme-chalk/index.css';
 
+console.log(window.name)
 let instance = null;
 Vue.use(ElementUI)
 const vueOptions = {

@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.config.productionTip = false;
 Vue.use(ElementUI)
 
+window.name = '这是一个微应用'
 
 if(document.head.createShadowRoot || document.head.attachShadow) {
     // I can shadow DOM
@@ -100,41 +101,13 @@ function genActiveRule(routerPrefix) {
 //注册子应用
 registerMicroApps(
     [
-        {
-            name: "module-app1",
-            entry: "//localhost:3001",
-            // render:render.bind({name:'app1'}),
-            container:'#app-child',
-            activeRule: genActiveRule("/app1"),
-            props: msg
-        },
+
         {
             name: "module-app2",
             entry: "//localhost:3002",
             // render:render.bind({name:'app2'}),
             container:'#app-child',
             activeRule: genActiveRule("/app2"),
-            props: msg
-        },
-        {
-            name: "module-app3",
-            entry: "//localhost:3003",
-            render:render.bind({name:'app3'}),
-            activeRule: genActiveRule("/app3"),
-            props: msg
-        },
-        {
-            name: "module-app4",
-            entry: "//localhost:3004",
-            render:render.bind({name:'app4'}),
-            activeRule: genActiveRule("/app4"),
-            props: msg
-        },
-        {
-            name: "module-app5",
-            entry: "//localhost:3005",
-            render:render.bind({name:'app5'}),
-            activeRule: genActiveRule("/app5"),
             props: msg
         }
     ],
@@ -186,10 +159,17 @@ start(startOptions);
   render: h => h(App)
 }).$mount("#app"); */
 
-router.beforeEach((to,from,next)=>{
-    console.log('_____________++++++++++____________')
-    next()
-})
-
+const childRoute = ['/app2'];
+const isChildRoute = path => childRoute.some(item => path.startsWith(item))
+const rawAppendChild = HTMLHeadElement.prototype.appendChild;
+const rawAddEventListener = window.addEventListener;
+router.beforeEach((to, from, next) => {
+  // 从子项目跳转到主项目
+  if(isChildRoute(from.path) && !isChildRoute(to.path)){
+    HTMLHeadElement.prototype.appendChild = rawAppendChild;
+    window.addEventListener = rawAddEventListener;
+  }
+  next();
+});
 
   

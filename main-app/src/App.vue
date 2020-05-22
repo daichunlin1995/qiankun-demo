@@ -18,7 +18,7 @@
     <router-link to="/app5">app5</router-link>
     <router-link to='/home'>自己的home</router-link>
     <router-link to='/about'>自己的about</router-link> -->
-    <!-- <router-link to='/hello'>自己的hello</router-link> -->
+    <router-link to='/about'>自己的about</router-link>
     <button @click="toHello"> hello </button>
     <!-- <button @click="toPath">hahaha</button> -->
     <!-- <el-button>默认按钮</el-button>  -->

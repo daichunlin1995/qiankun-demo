@@ -39,7 +39,10 @@ export default {
     huoqu() {
 
     }
-  }
+  },
+  mounted() {
+    console.log(window.name)
+  },
 };
 </script>
 <style>
